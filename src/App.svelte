@@ -75,7 +75,7 @@
   
   :global(body) {
     margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     /* Colores principales */
     --color-primary: #E27990;
     --color-primary-light: #F2B5C8;
@@ -95,11 +95,13 @@
     --color-neutral-dark: #D1CBD9;
     
     /* Variables para glassmorphism */
-    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-bg: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.5);
     --glass-shadow: rgba(0, 0, 0, 0.05);
     
     background-color: white;
+    color: #333;
+    line-height: 1.6;
   }
   
   /* Estilos globales para glassmorphism */
@@ -140,11 +142,118 @@
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
   }
   
-  /* Mejoras responsive */
+  /* Efectos de texto avanzados */
+  :global(.gradient-text) {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  }
+  
+  :global(.text-shadow) {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Bordes con gradiente */
+  :global(.gradient-border) {
+    position: relative;
+    border-radius: 0.5rem;
+    padding: 1px;
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+  }
+  
+  :global(.gradient-border::before) {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: 0.4rem;
+    background: white;
+    z-index: -1;
+  }
+  
+  :global(.gradient-border > *) {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Ajustes responsive adicionales */
   @media (max-width: 640px) {
     :global(.container) {
       padding-left: 1rem;
       padding-right: 1rem;
     }
+    
+    :global(h1) {
+      font-size: 2rem !important;
+    }
+    
+    :global(h2) {
+      font-size: 1.75rem !important;
+    }
+  }
+  
+  /* Scroll estilizado */
+  :global(::-webkit-scrollbar) {
+    width: 8px;
+    height: 8px;
+  }
+  
+  :global(::-webkit-scrollbar-track) {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  :global(::-webkit-scrollbar-thumb) {
+    background: linear-gradient(var(--color-primary-light), var(--color-primary));
+    border-radius: 4px;
+  }
+  
+  :global(::-webkit-scrollbar-thumb:hover) {
+    background: var(--color-primary-dark);
+  }
+  
+  /* Efectos de transición para enlaces */
+  :global(a) {
+    position: relative;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  :global(a:not(.btn):after) {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background: currentColor;
+    transition: width 0.3s;
+  }
+  
+  :global(a:not(.btn):hover:after) {
+    width: 100%;
+  }
+  
+  /* Estilos para botones con efecto de animación */
+  :global(.btn-animated) {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  :global(.btn-animated::before) {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.7s;
+    z-index: -1;
+  }
+  
+  :global(.btn-animated:hover::before) {
+    left: 100%;
   }
 </style>

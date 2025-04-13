@@ -22,6 +22,11 @@
     localPriceRange = { min: 0, max: 1000 };
     dispatch('reset');
   }
+  
+  function selectCategory(category) {
+    localCategory = category;
+    applyFilters();
+  }
 </script>
 
 <div class="bg-[#F7F5F8] p-6 rounded-md">
@@ -29,23 +34,20 @@
   
   <div class="mb-6">
     <h3 class="font-medium text-gray-800 mb-3">Categorías</h3>
-    <div class="space-y-2">
+    <div class="flex flex-wrap gap-2">
       {#each categories as category}
-        <label class="flex items-center">
-          <input 
-            type="radio" 
-            bind:group={localCategory}
-            value={category} 
-            class="mr-2 accent-[#E27990]"
-          />
-          <span class="text-gray-700">{category}</span>
-        </label>
+        <button
+          class="px-4 py-2 rounded-md transition-all duration-200 text-sm {localCategory === category ? 'bg-[#E27990] text-white shadow-md' : 'bg-white hover:bg-[#F2B5C8]/20 text-gray-700 border border-gray-200'}"
+          on:click={() => selectCategory(category)}
+        >
+          {category}
+        </button>
       {/each}
     </div>
   </div>
   
   <div class="mb-6">
-    <h3 class="font-medium text-gray-800 mb-3">Precio máximo: ${localPriceRange.max}</h3>
+    <h3 class="font-medium text-gray-800 mb-3">Precio máximo: {localPriceRange.max}€</h3>
     <input 
       type="range" 
       bind:value={localPriceRange.max} 
@@ -59,7 +61,7 @@
   <div class="flex flex-col gap-2">
     <button
       on:click={applyFilters}
-      class="w-full py-2 bg-[#E27990] hover:bg-[#C95775] text-white rounded-md transition-colors"
+      class="w-full py-2 bg-[#E27990] hover:bg-[#C95775] text-white rounded-md transition-colors shadow-sm"
     >
       Aplicar filtros
     </button>
